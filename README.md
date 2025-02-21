@@ -50,7 +50,7 @@ be of interest to a utility to aggregate and market their power.
 API Documentation - Swagger UI Access
 Once the application is running, access the Swagger UI for API documentation
 at: [Swagger UI](http://localhost:8080/swagger-ui.html)
-![Swagger UI](screenshots/swagger.png)
+[![swagger.png](https://i.postimg.cc/zGF3P7c0/swagger.png)](https://postimg.cc/jDCsDHK7)
 
 # **API Test Response**
 
@@ -127,7 +127,7 @@ consistency.
 The application logs important events, including battery registrations, to a file regularly. Here’s a sample log of the
 battery registration process:
 
-![Log File Screenshot](screenshots/logs.png)
+[![logs.png](https://i.postimg.cc/G2H2tCh5/logs.png)](https://postimg.cc/BLfs7RFT)
 
 **Log File Configuration:**
 
