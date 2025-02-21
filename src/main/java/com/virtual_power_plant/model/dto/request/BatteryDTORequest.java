@@ -11,8 +11,7 @@ import lombok.*;
 public class BatteryDTORequest {
     @NotNull
     private String name;
-    private Long postCode;
+    private Long postcode;
     @NotNull
-    private Double wattCapacity;
-    private Boolean isDeleted;
+    private Double capacity;
 }

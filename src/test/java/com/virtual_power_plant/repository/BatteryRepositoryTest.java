@@ -28,7 +28,7 @@ class BatteryRepositoryTest {
 
     private BatteryTestDataInitializer batteryTestDataInitializer;
 
-    private static Stream<Arguments> postCodeRangeProvider() {
+    private static Stream<Arguments> postcodeRangeProvider() {
         return Stream.of(
                 Arguments.of(1000L, 2000L, 5000.0, 15000.0),
                 Arguments.of(1500L, 2500L, null, 15000.0),
@@ -42,7 +42,7 @@ class BatteryRepositoryTest {
     }
 
     @Test
-    void givenBatteryId_WhenFindById_ThenReturnsBattery() {
+    void givenBatteryId_whenFindById_ThenReturnsBattery() {
         var newBattery = batteryTestDataInitializer.getFirstBattery();
         var savedBatteryId = batteryRepository.save(newBattery).getId();
 
@@ -51,15 +51,15 @@ class BatteryRepositoryTest {
         assertThat(fetchedBattery).isPresent();
         assertThat(fetchedBattery.orElseThrow()).extracting(
                 Battery::getName,
-                Battery::getWattCapacity
+                Battery::getCapacity
         ).containsExactly(
                 newBattery.getName(),
-                newBattery.getWattCapacity()
+                newBattery.getCapacity()
         );
     }
 
     @Test
-    void givenNewBattery_WhenSaved_ThenReturnsSavedBattery() {
+    void givenNewBattery_whenSaved_ThenReturnsSavedBattery() {
         var newBattery = batteryTestDataInitializer.getFirstBattery();
 
         var savedBattery = batteryRepository.save(newBattery);
@@ -77,26 +77,26 @@ class BatteryRepositoryTest {
     }
 
     @ParameterizedTest
-    @MethodSource("postCodeRangeProvider")
-    void givenPostCodeRange_WhenFindByPostCodeBetweenRange_ThenReturnsBatteriesSortedByNameASC(Long startPostCode,
-                                                                                               Long endPostCode,
-                                                                                               Double minWattCapacity,
-                                                                                               Double maxWattCapacity) {
+    @MethodSource("postcodeRangeProvider")
+    void givenPostcodeRange_whenFindByPostcodeBetweenRange_ThenReturnsBatteriesSortedByNameASC(Long startpostcode,
+                                                                                               Long endpostcode,
+                                                                                               Double minCapacity,
+                                                                                               Double maxCapacity) {
         var batteries = List.of(batteryTestDataInitializer.getFirstBattery(), batteryTestDataInitializer.getSecondBattery());
         batteryRepository.saveAll(batteries);
 
-        var fetchedBatteryList = batteryRepository.findBatteriesByPostCodeOrWattCapacity(startPostCode, endPostCode,
-                minWattCapacity, maxWattCapacity);
+        var fetchedBatteryList = batteryRepository.findBatteriesByPostcodeOrCapacity(startpostcode, endpostcode,
+                minCapacity, maxCapacity);
 
         assertThat(fetchedBatteryList).isNotEmpty();
         assertThat(fetchedBatteryList)
-                .extracting(Battery::getPostCode)
-                .allMatch(postCode -> postCode >= startPostCode && postCode <= endPostCode);
+                .extracting(Battery::getPostcode)
+                .allMatch(postcode -> postcode >= startpostcode && postcode <= endpostcode);
         assertThat(fetchedBatteryList)
-                .extracting(Battery::getWattCapacity)
-                .allMatch(wattCapacity -> {
-                    boolean isWithinMin = Objects.isNull(minWattCapacity) || wattCapacity >= minWattCapacity;
-                    boolean isWithinMax = Objects.isNull(maxWattCapacity) || wattCapacity <= maxWattCapacity;
+                .extracting(Battery::getCapacity)
+                .allMatch(capacity -> {
+                    boolean isWithinMin = Objects.isNull(minCapacity) || capacity >= minCapacity;
+                    boolean isWithinMax = Objects.isNull(maxCapacity) || capacity <= maxCapacity;
                     return isWithinMin && isWithinMax;
                 });
     }

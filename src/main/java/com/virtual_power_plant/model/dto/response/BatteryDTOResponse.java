@@ -12,6 +12,6 @@ import java.util.UUID;
 public class BatteryDTOResponse {
     private UUID id;
     private String name;
-    private Long postCode;
-    private Double wattCapacity;
+    private Long postcode;
+    private Double capacity;
 }

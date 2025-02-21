@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface BatteryRepositoryCustom {
 
-    List<Battery> findBatteriesByPostCodeOrWattCapacity(Long startPostCode,
-                                                        Long endPostCode,
-                                                        Double minWattCapacity,
-                                                        Double maxWattCapacity);
+    List<Battery> findBatteriesByPostcodeOrCapacity(Long startPostcode,
+                                                    Long endPostcode,
+                                                    Double minCapacity,
+                                                    Double maxCapacity);
 }

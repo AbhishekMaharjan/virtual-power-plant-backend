@@ -19,29 +19,29 @@ import java.util.Objects;
 @Repository
 public class BatteryRepositoryCustomImpl implements BatteryRepositoryCustom {
 
-    public static final String POST_CODE = "postCode";
-    public static final String WATT_CAPACITY = "wattCapacity";
+    public static final String postcode = "postcode";
+    public static final String CAPACITY = "capacity";
     public static final String NAME = "name";
 
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
-    public List<Battery> findBatteriesByPostCodeOrWattCapacity(@NonNull Long startpostCode,
-                                                               @NonNull Long endPostCode,
-                                                               Double minWattCapacity,
-                                                               Double maxWattCapacity) {
+    public List<Battery> findBatteriesByPostcodeOrCapacity(@NonNull Long startPostcode,
+                                                           @NonNull Long endPostcode,
+                                                           Double minCapacity,
+                                                           Double maxCapacity) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Battery> query = criteriaBuilder.createQuery(Battery.class);
         Root<Battery> batteryEntity = query.from(Battery.class);
         List<Predicate> predicates = new ArrayList<>();
-        predicates.add(criteriaBuilder.between(batteryEntity.get(POST_CODE), startpostCode, endPostCode));
+        predicates.add(criteriaBuilder.between(batteryEntity.get(postcode), startPostcode, endPostcode));
 
-        if (Objects.nonNull(minWattCapacity)) {
-            predicates.add(criteriaBuilder.greaterThanOrEqualTo(batteryEntity.get(WATT_CAPACITY), minWattCapacity));
+        if (Objects.nonNull(minCapacity)) {
+            predicates.add(criteriaBuilder.greaterThanOrEqualTo(batteryEntity.get(CAPACITY), minCapacity));
         }
-        if (Objects.nonNull(maxWattCapacity)) {
-            predicates.add(criteriaBuilder.lessThanOrEqualTo(batteryEntity.get(WATT_CAPACITY), maxWattCapacity));
+        if (Objects.nonNull(maxCapacity)) {
+            predicates.add(criteriaBuilder.lessThanOrEqualTo(batteryEntity.get(CAPACITY), maxCapacity));
         }
 
         query.select(batteryEntity).where(criteriaBuilder.and(predicates.toArray(new Predicate[0])));

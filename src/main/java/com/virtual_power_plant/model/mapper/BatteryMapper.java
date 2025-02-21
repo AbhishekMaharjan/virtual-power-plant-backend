@@ -11,6 +11,5 @@ public interface BatteryMapper {
 
     BatteryDTOResponse toDTOResponse(Battery battery);
 
-    @Mapping(source = "isDeleted", target = "isDeleted", defaultValue = "false")
     Battery toEntity(BatteryDTORequest batteryDTORequest);
 }

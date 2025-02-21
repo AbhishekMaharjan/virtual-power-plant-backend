@@ -33,14 +33,14 @@ public class BatteryController extends BaseController {
 
     @GetMapping
     public ResponseEntity<GlobalApiResponse<BatteryStatsResponse>> search(
-            @RequestParam(defaultValue = "1000") Long startPostCode,
-            @RequestParam(defaultValue = "9999") Long endPostCode,
-            @RequestParam(required = false) Double minWattCapacity,
-            @RequestParam(required = false) Double maxWattCapacity) {
+            @RequestParam(defaultValue = "1000") Long startPostcode,
+            @RequestParam(defaultValue = "9999") Long endPostcode,
+            @RequestParam(required = false) Double minCapacity,
+            @RequestParam(required = false) Double maxCapacity) {
 
         return buildFetchedResponse(
                 customMessageSource.getMessage(FETCHED_LIST, BATTERY),
-                batteryService.getBatteries(startPostCode, endPostCode, minWattCapacity, maxWattCapacity)
+                batteryService.getBatteries(startPostcode, endPostcode, minCapacity, maxCapacity)
         );
     }
 

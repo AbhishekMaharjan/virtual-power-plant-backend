@@ -24,45 +24,45 @@ public class BatteryTestDataInitializer {
     public BatteryTestDataInitializer() {
         firstBattery = Battery.builder()
                 .name("Tesla Powerwall 2")
-                .wattCapacity(13500.0)
-                .postCode(2000L)
+                .capacity(13500.0)
+                .postcode(2000L)
                 .isDeleted(false)
                 .build();
 
         secondBattery = Battery.builder()
                 .name("LG Chem RESU 10")
-                .wattCapacity(9800.0)
-                .postCode(2500L)
+                .capacity(9800.0)
+                .postcode(2500L)
                 .isDeleted(false)
                 .build();
 
         firstBatteryDTORequest = BatteryDTORequest.builder()
                 .name("Tesla Powerwall 2")
-                .postCode(2000L)
-                .wattCapacity(13500.0)
+                .postcode(2000L)
+                .capacity(13500.0)
                 .build();
 
         secondBatteryDTORequest = BatteryDTORequest.builder()
                 .name("LG Chem RESU 10")
-                .postCode(2500L)
-                .wattCapacity(9800.0)
+                .postcode(2500L)
+                .capacity(9800.0)
                 .build();
 
         batteryStatsResponse = BatteryStatsResponse.builder()
                 .batteryNames(List.of("Tesla Powerwall 2", "LG Chem RESU 10"))
-                .averageWattCapacity(11650.0)
-                .totalWattCapacity(23300.0).build();
+                .averageCapacity(11650.0)
+                .totalCapacity(23300.0).build();
 
         firstBatteryDTOResponse = BatteryDTOResponse.builder()
                 .name("Tesla Powerwall 2")
-                .postCode(2000L)
-                .wattCapacity(13500.0)
+                .postcode(2000L)
+                .capacity(13500.0)
                 .build();
 
         secondBatteryDTOResponse = BatteryDTOResponse.builder()
                 .name("LG Chem RESU 10")
-                .postCode(2500L)
-                .wattCapacity(9800.0)
+                .postcode(2500L)
+                .capacity(9800.0)
                 .build();
 
     }

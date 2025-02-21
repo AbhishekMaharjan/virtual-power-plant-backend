@@ -52,7 +52,7 @@ class BatteryControllerIntegrationTest extends PostgreSQLBaseTestContainer {
         var savedBattery = batteryRepository.save(batteryTestDataInitializer.getFirstBattery());
 
         ResponseEntity<GlobalApiResponse<BatteryStatsResponse>> response = testRestTemplate.exchange(
-                "/api/v1/battery?startPostCode=1000&endPostCode=2000",
+                "/api/v1/battery?startPostcode=1000&endPostcode=2000",
                 HttpMethod.GET,
                 HttpEntity.EMPTY,
                 new ParameterizedTypeReference<>() {
@@ -117,12 +117,12 @@ class BatteryControllerIntegrationTest extends PostgreSQLBaseTestContainer {
                 .extracting(
                         ResponseEntity::getStatusCode,
                         updatedBattery -> Objects.requireNonNull(updatedBattery.getBody()).getData().getName(),
-                        updatedBattery -> Objects.requireNonNull(updatedBattery.getBody()).getData().getWattCapacity()
+                        updatedBattery -> Objects.requireNonNull(updatedBattery.getBody()).getData().getCapacity()
                 )
                 .containsExactly(
                         HttpStatus.OK,
                         batteryDTORequest.getName(),
-                        batteryDTORequest.getWattCapacity()
+                        batteryDTORequest.getCapacity()
                 );
     }
 

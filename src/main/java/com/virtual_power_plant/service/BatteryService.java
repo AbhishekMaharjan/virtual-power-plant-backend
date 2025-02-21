@@ -49,11 +49,11 @@ public class BatteryService {
     public BatteryDTOResponse update(BatteryDTORequest batteryDTORequest, UUID batteryId) {
         var battery = findById(batteryId);
         battery.setName(batteryDTORequest.getName());
-        battery.setPostCode(batteryDTORequest.getPostCode());
-        battery.setWattCapacity(batteryDTORequest.getWattCapacity());
+        battery.setPostcode(batteryDTORequest.getPostcode());
+        battery.setCapacity(batteryDTORequest.getCapacity());
         battery = batteryRepository.save(battery);
 
-        log.warn("Battery with UUID {} has been updated with watt capacity {}.", batteryId, battery.getWattCapacity());
+        log.warn("Battery with UUID {} has been updated with capacity {}.", batteryId, battery.getCapacity());
         return batteryMapper.toDTOResponse(battery);
     }
 
@@ -66,23 +66,23 @@ public class BatteryService {
         return true;
     }
 
-    public BatteryStatsResponse getBatteries(Long startPostCode, Long endPostCode, Double minWattCapacity, Double maxWattCapacity) {
-        var batteryList = batteryRepository.findBatteriesByPostCodeOrWattCapacity(startPostCode, endPostCode, minWattCapacity, maxWattCapacity);
+    public BatteryStatsResponse getBatteries(Long startPostcode, Long endPostcode, Double minCapacity, Double maxCapacity) {
+        var batteryList = batteryRepository.findBatteriesByPostcodeOrCapacity(startPostcode, endPostcode, minCapacity, maxCapacity);
 
         if (batteryList.isEmpty()) {
             return new BatteryStatsResponse();
         }
 
         var names = batteryList.stream().map(Battery::getName).toList();
-        var totalWattCapacity = batteryList.stream().mapToDouble(Battery::getWattCapacity).sum();
-        var averageWattCapacity = totalWattCapacity / batteryList.size();
-        var formatted = String.format("%.2f", averageWattCapacity);
-        averageWattCapacity = Double.parseDouble(formatted);
+        var totalCapacity = batteryList.stream().mapToDouble(Battery::getCapacity).sum();
+        var averageCapacity = totalCapacity / batteryList.size();
+        var formatted = String.format("%.2f", averageCapacity);
+        averageCapacity = Double.parseDouble(formatted);
 
         var batteryStatsResponse = BatteryStatsResponse.builder()
                 .batteryNames(names)
-                .totalWattCapacity(totalWattCapacity)
-                .averageWattCapacity(averageWattCapacity).build();
+                .totalCapacity(totalCapacity)
+                .averageCapacity(averageCapacity).build();
 
         log.info("No of batteries retrieved : {}", batteryList.size());
         return batteryStatsResponse;

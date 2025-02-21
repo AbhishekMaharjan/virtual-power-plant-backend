@@ -113,10 +113,10 @@ class BatteryServiceTest {
         assertThat(savedBatteryDTOResponses).isNotNull().hasSize(2);
         assertThat(savedBatteryDTOResponses).extracting(
                 BatteryDTOResponse::getName,
-                BatteryDTOResponse::getWattCapacity
+                BatteryDTOResponse::getCapacity
         ).containsExactlyInAnyOrder(
-                tuple(firstBatteryDTOResponse.getName(), firstBatteryDTOResponse.getWattCapacity()),
-                tuple(secondBatteryDTOResponse.getName(), secondBatteryDTOResponse.getWattCapacity())
+                tuple(firstBatteryDTOResponse.getName(), firstBatteryDTOResponse.getCapacity()),
+                tuple(secondBatteryDTOResponse.getName(), secondBatteryDTOResponse.getCapacity())
         );
 
         verify(batteryRepository, times(1)).saveAll(Mockito.anyList());
@@ -140,10 +140,10 @@ class BatteryServiceTest {
         assertThat(updatedBattery).isNotNull();
         assertThat(updatedBattery).extracting(
                 BatteryDTOResponse::getName,
-                BatteryDTOResponse::getWattCapacity
+                BatteryDTOResponse::getCapacity
         ).containsExactly(
                 secondBatteryDTOResponse.getName(),
-                secondBatteryDTOResponse.getWattCapacity()
+                secondBatteryDTOResponse.getCapacity()
         );
 
         verify(batteryRepository, times(1)).findById(batteryId);
@@ -167,10 +167,10 @@ class BatteryServiceTest {
     }
 
     @Test
-    void givenBatteriesInRange_whenFetchedByPostCodeBetweenGivenRange_thenReturnBatteryStatisticsResponse() {
+    void givenBatteriesInRange_whenFetchedByPostcodeBetweenGivenRange_thenReturnsBatteryStatisticsResponse() {
         List<Battery> batteries = List.of(batteryTestDataInitializer.getFirstBattery(), batteryTestDataInitializer.getSecondBattery());
 
-        when(batteryRepository.findBatteriesByPostCodeOrWattCapacity(Mockito.anyLong(), Mockito.anyLong(),
+        when(batteryRepository.findBatteriesByPostcodeOrCapacity(Mockito.anyLong(), Mockito.anyLong(),
                 Mockito.anyDouble(), Mockito.anyDouble())).thenReturn(batteries);
 
         BatteryStatsResponse batteryStatsResponse = batteryService.getBatteries(2000L, 10000L,
@@ -179,15 +179,15 @@ class BatteryServiceTest {
         assertThat(batteryStatsResponse).isNotNull();
         assertThat(batteryStatsResponse).extracting(
                 BatteryStatsResponse::getBatteryNames,
-                BatteryStatsResponse::getTotalWattCapacity,
-                BatteryStatsResponse::getAverageWattCapacity
+                BatteryStatsResponse::getTotalCapacity,
+                BatteryStatsResponse::getAverageCapacity
         ).containsExactly(
                 batteries.stream().map(Battery::getName).toList(),
                 23300.0,
                 11650.0
         );
 
-        verify(batteryRepository, times(1)).findBatteriesByPostCodeOrWattCapacity(
+        verify(batteryRepository, times(1)).findBatteriesByPostcodeOrCapacity(
                 Mockito.anyLong(),
                 Mockito.anyLong(),
                 Mockito.anyDouble(),

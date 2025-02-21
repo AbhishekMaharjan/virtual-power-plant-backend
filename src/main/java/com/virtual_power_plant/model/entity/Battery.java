@@ -32,11 +32,11 @@ public class Battery extends AbstractEntity implements Serializable {
     @Column(name = "name", length = 50)
     private String name;
 
-    @Column(name = "post_code")
-    private Long postCode;
+    @Column(name = "postcode")
+    private Long postcode;
 
-    @Column(name = "watt_capacity")
-    private Double wattCapacity;
+    @Column(name = "capacity")
+    private Double capacity;
 
     @Builder.Default
     @Column(name = "is_deleted")
