@@ -29,28 +29,27 @@ be of interest to a utility to aggregate and market their power.
 # **Installation**
 
 - For Java, install the suitable jdk in the project structure of the
-  IDE [Java Installation](https://www.jetbrains.com/guide/java/tips/download-jdk/)
+  IDE [Java Installation](https://www.oracle.com/java/technologies/downloads/#java8)
 
 - For PostgreSQL, install the required drivers and run configuration files or run the database in a
-  docker [PostgreSQL installation](https://www.jetbrains.com/help/idea/running-a-dbms-file.html), for community
-  edition [PostgreSQL installation](https://www.youtube.com/watch?v=JMT5F7kQIGs)
+  docker [PostgreSQL installation](https://www.postgresql.org/download/)
 
 # **Start**
 
 - For gradle build `./gradlew clean build` and  `./gradlew bootRun`
 - To run the application, the following environment variables must be configured. You can set them in your .env file at
   /resources.
-  POSTGRES_USER: The username to connect to the PostgreSQL database. Example: POSTGRES_USER=username
-  POSTGRES_PASSWORD: The password for the PostgreSQL database user. Example: POSTGRES_PASSWORD=123456789
+- POSTGRES_USER: The username to connect to the PostgreSQL database. Example: `POSTGRES_USER=username`
+  POSTGRES_PASSWORD: The password for the PostgreSQL database user. Example: `POSTGRES_PASSWORD=123456789`
   POSTGRES_URL: The JDBC URL to connect to the PostgreSQL database. It should include the host, port, and database name.
-  Example: POSTGRES_URL=jdbc:postgresql://localhost:{port}/{db_name}
-  LOGS_FOLDER_PATH: The path where the application logs will be stored. Example: LOGS_FOLDER_PATH=./logs
+  Example: `POSTGRES_URL=jdbc:postgresql://localhost:{port}/{db_name}`
+  LOGS_FOLDER_PATH: The path where the application logs will be stored. Example: `LOGS_FOLDER_PATH=./logs`
 
 # **API Documentation - Swagger UI Access**
 
 API Documentation - Swagger UI Access
 Once the application is running, access the Swagger UI for API documentation
-at: [Swagger UI] (http://localhost:8080/swagger-ui.html)
+at: [Swagger UI](http://localhost:8080/swagger-ui.html)
 ![Swagger UI](screenshots/swagger.png)
 
 # **API Test Response**
